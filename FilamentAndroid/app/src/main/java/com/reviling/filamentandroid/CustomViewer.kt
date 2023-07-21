@@ -1,10 +1,11 @@
 package com.reviling.filamentandroid
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.Choreographer
 import android.view.SurfaceView
 import com.google.android.filament.Skybox
-import com.google.android.filament.utils.KTXLoader
+import com.google.android.filament.utils.KTX1Loader
 import com.google.android.filament.utils.ModelViewer
 import com.google.android.filament.utils.Utils
 import java.nio.ByteBuffer
@@ -23,6 +24,7 @@ class CustomViewer {
         choreographer = Choreographer.getInstance()
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     fun setSurfaceView(mSurfaceView: SurfaceView) {
         modelViewer = ModelViewer(mSurfaceView)
         mSurfaceView.setOnTouchListener(modelViewer)
@@ -68,7 +70,9 @@ class CustomViewer {
             ByteBuffer.wrap(bytes)
         }
         modelViewer.apply {
-            loadModelGltf(buffer) { uri -> readAsset(context, "models/${dirName}/$uri") }
+            loadModelGltf(buffer) { uri ->
+                readAsset(context, "models/${dirName}/$uri")
+            }
             transformToUnitCube()
         }
     }
@@ -76,7 +80,7 @@ class CustomViewer {
     fun loadIndirectLight(context: Context, ibl: String) {
         // Create the indirect light source and add it to the scene.
         val buffer = readAsset(context, "environments/venetian_crossroads_2k/${ibl}_ibl.ktx")
-        KTXLoader.createIndirectLight(modelViewer.engine, buffer).apply {
+        KTX1Loader.createIndirectLight(modelViewer.engine, buffer).apply {
             intensity = 50_000f
             modelViewer.scene.indirectLight = this
         }
@@ -85,7 +89,7 @@ class CustomViewer {
     fun loadEnviroment(context: Context, ibl: String) {
         // Create the sky box and add it to the scene.
         val buffer = readAsset(context, "environments/venetian_crossroads_2k/${ibl}_skybox.ktx")
-        KTXLoader.createSkybox(modelViewer.engine, buffer).apply {
+        KTX1Loader.createSkybox(modelViewer.engine, buffer).apply {
             modelViewer.scene.skybox = this
         }
     }

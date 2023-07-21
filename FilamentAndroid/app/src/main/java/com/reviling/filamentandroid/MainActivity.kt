@@ -20,15 +20,16 @@ class MainActivity : AppCompatActivity() {
             setSurfaceView(requireNotNull(surfaceView))
 
             //directory and model each as param
-            loadGlb(this@MainActivity, "grogu", "grogu")
-            //loadGltf(this@MainActivity, "warcraft", "scene");
+//            loadGlb(this@MainActivity, "grogu", "grogu")
+//            loadGltf(this@MainActivity, "warcraft", "scene");
+            loadGltf(this@MainActivity, "lieutenantHead", "lieutenantHead");
 
             //directory and model as one
             //loadGlb(this@MainActivity, "grogu/grogu");
 
             //Enviroments and Lightning (OPTIONAL)
             loadIndirectLight(this@MainActivity, "venetian_crossroads_2k")
-            //loadEnviroment(this@MainActivity, "venetian_crossroads_2k");
+//            loadEnviroment(this@MainActivity, "venetian_crossroads_2k");
         }
     }
 
